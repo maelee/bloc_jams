@@ -29,6 +29,21 @@
          { name: 'Wrong phone number', length: '2:15'}
      ]
  };
+
+var albumFavorite = {
+     name: 'Hipster Dreams',
+     artist: 'Bearded Guy',
+     label: 'None',
+     year: '2015',
+     albumArtUrl: 'assets/images/album_covers/02.png',
+     songs: [
+         { name: 'I heard it first', length: '2:01' },
+         { name: 'Too Mainstream', length: '3:05' },
+         { name: 'Ironic', length: '4:11'},
+         { name: 'Portlandia Dreaming', length: '1:14' },
+         { name: 'Craft Everything', length: '2:55'}
+     ]
+ };
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -40,13 +55,14 @@ var createSongRow = function(songNumber, songName, songLength) {
  
      return template;
  };
+
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
-     // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
  
      // #2
      albumTitle.firstChild.nodeValue = album.name;
@@ -65,4 +81,14 @@ var setCurrentAlbum = function(album) {
  
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
- };
+ 
+     var albums = [albumPicasso, albumMarconi, albumFavorite];
+     var index = 1;
+     albumImage.addEventListener("click", function(event) {
+         setCurrentAlbum(albums[index]);
+         index++;
+         if (index == albums.length) {
+             index = 0;
+         }
+     });
+};
